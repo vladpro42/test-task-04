@@ -1,9 +1,11 @@
 import { useState } from "react"
-import { getFilter } from "../../utils/utils"
-import { INote } from "../../types/NotesTypes"
-import { Form, Button, Input } from "antd"
+import { INote } from "../../reducer/types"
+import { Button, Input } from "antd"
+import { Dispatch } from "redux"
+import { addNote } from "../../reducer"
+import { ActionAddNote } from "../../reducer/types"
 
-const FormNote = ({ setNodes }: { setNodes: React.Dispatch<React.SetStateAction<INote[]>> }) => {
+const FormNote = ({ dispatch }: { dispatch: Dispatch<ActionAddNote> }) => {
 
     const [value, setValue] = useState("")
 
@@ -15,16 +17,12 @@ const FormNote = ({ setNodes }: { setNodes: React.Dispatch<React.SetStateAction<
     const onSubmit = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault()
 
-        const payload = {
+        const payload: INote = {
             id: window.crypto.randomUUID(),
             note: value,
-            filter: []
         }
 
-        console.log(payload)
-
-        setNodes(prev => [...prev, payload])
-
+        dispatch(addNote(payload))
         setValue("")
     }
 

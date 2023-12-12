@@ -71,3 +71,22 @@ span {
   max-width: 350px;
   margin-bottom: 10px;
 }
+
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup__container {
+  width: 50vh;
+  height: 350px;
+  background-color: white;
+  margin: 0 auto;
+}

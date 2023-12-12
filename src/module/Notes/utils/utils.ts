@@ -1,4 +1,4 @@
-import { INote } from "../types/NotesTypes";
+import { INote } from "../reducer/types";
 
 export function getFilter(str: string): string[] {
     const arr = str.split(" ");

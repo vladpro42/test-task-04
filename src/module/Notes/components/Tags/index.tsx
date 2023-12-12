@@ -1,4 +1,4 @@
-import { INote } from "../../types/NotesTypes";
+import { INote } from "../../reducer/types";
 import { getArrayTegsFormState } from "../../utils/utils";
 import { Button, Flex } from 'antd';
 
