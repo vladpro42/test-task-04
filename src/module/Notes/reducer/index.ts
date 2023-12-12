@@ -59,6 +59,7 @@ export const addNote = (value: INote): ActionAddNote => ({
     payload: value
 })
 
+
 export const deleteNote = (value: IdNote): ActionDeleteNote => ({
     type: NotesActionEnum.deleteNote,
     payload: value
@@ -68,3 +69,7 @@ export const changeNote = (value: INote): ActionChangeNote => ({
     type: NotesActionEnum.changeNote,
     payload: value
 })
+
+
+
+

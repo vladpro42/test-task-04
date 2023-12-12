@@ -4,6 +4,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { useAppDispatch } from "../../../../hooks/hooks";
 import { changeNote, deleteNote } from "../../reducer";
 import FormNote from "../FormNote";
+import { Input, Button } from "antd";
 
 const NoteItem = memo(({ note }: { note: INote }) => {
 
@@ -13,14 +14,6 @@ const NoteItem = memo(({ note }: { note: INote }) => {
 
     const [isPopup, setIsPopup] = useState(false)
     const [input, setInput] = useState("")
-
-    if (indexTeg == -1) {
-        return <li className="notes" key={note.id}>
-            {note.note}
-            <DeleteOutlined onClick={() => dispatch(deleteNote(note.id))} style={{ marginLeft: "15px", cursor: "pointer" }} />
-            <EditOutlined style={{ marginLeft: "15px", cursor: "pointer" }} />
-        </li>
-    }
 
     const onCLickShowPopup = (e: React.MouseEvent<HTMLElement>, note: INote) => {
         setIsPopup(true)
@@ -37,10 +30,32 @@ const NoteItem = memo(({ note }: { note: INote }) => {
         setIsPopup(false)
     }
 
+    if (indexTeg == -1) {
+        return <li className="notes" key={note.id}>
+            {note.note}
+            <DeleteOutlined onClick={() => dispatch(deleteNote(note.id))} style={{ marginLeft: "15px", cursor: "pointer" }} />
+            <EditOutlined onClick={(e) => onCLickShowPopup(e, note)} style={{ marginLeft: "15px", cursor: "pointer" }} />
+
+            {isPopup && <div className={isPopup ? "popup popup_active" : "popup"} onClick={() => setIsPopup(false)}>
+                <div className="popup__container" onClick={e => e.stopPropagation()} >
+                    <FormNote>
+                        <h1>Change Note</h1>
+                        <Input placeholder="Chnage Note" value={input} onChange={e => setInput(e.target.value)} />
+                        <Button onClick={onClickSubmit}>изменить</Button>
+                    </FormNote>
+                </div>
+            </div>
+            }
+        </li>
+    }
+
+
+
     const part1 = note.note.slice(indexTeg)
     const startOfStr = note.note.slice(0, indexTeg)
     const wordWithHashTag = part1.split(" ")[0] || ""
     const endOfStr = part1.split(" ")[1] || ""
+
     return <li className="notes" key={note.id}>
         {startOfStr}
         <span className="notes__tags">&nbsp;{wordWithHashTag}&nbsp;</span>
@@ -50,12 +65,15 @@ const NoteItem = memo(({ note }: { note: INote }) => {
 
         {isPopup && <div className={isPopup ? "popup popup_active" : "popup"} onClick={() => setIsPopup(false)}>
             <div className="popup__container" onClick={e => e.stopPropagation()} >
-                <h1>Change Note</h1>
-                <input type="text" value={input} onChange={e => setInput(e.target.value)} />
-                <button onClick={e => onClickSubmit(e)}>изменить</button>
+                <FormNote>
+                    <h1>Change Note</h1>
+                    <Input placeholder="Chnage Note" value={input} onChange={e => setInput(e.target.value)} />
+                    <Button className="change__form__btn" onClick={onClickSubmit} >изменить</Button>
+                </FormNote>
             </div>
-        </div>}
-    </li>
+        </div>
+        }
+    </li >
 })
 
 export default NoteItem;

@@ -85,8 +85,13 @@ span {
 }
 
 .popup__container {
+  padding: 10px 15px;
   width: 50vh;
   height: 350px;
   background-color: white;
   margin: 0 auto;
+}
+
+.change__form__btn {
+  margin-top: 15px;
 }
